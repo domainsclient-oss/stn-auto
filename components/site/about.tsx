@@ -31,7 +31,7 @@ export function About() {
             </p>
           </Reveal>
 
-          <dl className="mt-14 lg:mt-auto lg:pt-16">
+          <dl className="mt-12">
             {companyFacts.map((fact, i) => (
               <div key={fact.label}>
                 <Rule delay={0.1 * i} />
@@ -51,8 +51,9 @@ export function About() {
           </dl>
         </div>
 
-        <div className="relative lg:col-span-6">
-          <ImageReveal className="relative aspect-[4/5] w-full bg-ink lg:sticky lg:top-24">
+        {/* On desktop the photo stretches to the height of the text column */}
+        <div className="relative flex flex-col lg:col-span-6">
+          <ImageReveal className="relative aspect-[4/5] w-full bg-ink lg:aspect-auto lg:min-h-[420px] lg:flex-1">
             <Image
               src="/images/intro-seat.webp"
               alt="Close detail of a car seat upholstered in knitted automotive fabric"
@@ -61,7 +62,8 @@ export function About() {
               className="object-cover"
             />
           </ImageReveal>
-          <p className="eyebrow mt-4 flex justify-between text-ink/60">
+          {/* Caption hangs below the frame so the photo ends level with the text */}
+          <p className="eyebrow mt-4 flex justify-between text-ink/60 lg:absolute lg:inset-x-0 lg:top-full">
             <span>Automotive seat fabric</span>
             <span>Fig. 01</span>
           </p>
