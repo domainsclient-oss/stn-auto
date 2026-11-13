@@ -1,130 +1,128 @@
 import { equipment } from "@/lib/content";
-import { cn } from "@/lib/utils";
 import { Reveal } from "./reveal";
 import { SectionHeading } from "./section-heading";
 
-const columns = ["S.No.", "Item", "Maker", "Range", "Qty", "Location"] as const;
+const pad = (n: number) => String(n).padStart(2, "0");
 
+/**
+ * Equipment as an instrument catalogue: each division is a band with a sticky
+ * summary panel (count, units, location) beside a hairline grid of spec tiles.
+ * Every tile keeps the original fields: S.No., item, maker, range, qty, location.
+ */
 export function Equipment() {
   // Serial numbers run continuously across both divisions.
   let serial = 0;
-  const groups = equipment.map((group) => ({
-    ...group,
-    items: group.items.map((item) => ({ ...item, sno: ++serial })),
-  }));
+  const groups = equipment.map((group) => {
+    const items = group.items.map((item) => ({ ...item, sno: ++serial }));
+    const locations = [...new Set(items.map((i) => i.location))];
+    const units = items.reduce((sum, i) => sum + i.qty, 0);
+    return { ...group, items, locations, units };
+  });
 
   return (
-    <section
-      id="equipment"
-      aria-labelledby="equipment-title"
-      className="bg-paper text-ink"
-    >
+    <section id="equipment" aria-labelledby="equipment-title" className="bg-paper text-ink">
       <div className="mx-auto max-w-[1440px] px-5 py-24 md:px-10 md:py-32">
-        <SectionHeading
-          id="equipment-title"
-          label="Measuring & testing"
-          title="Our equipments."
-        />
+        <SectionHeading id="equipment-title" label="Measuring & testing" title="Our equipments." />
 
-        <div className="mt-16 space-y-16 md:mt-24 md:space-y-20">
+        <div className="mt-16 space-y-20 md:mt-24 md:space-y-28">
           {groups.map((group, gi) => (
-            <Reveal key={group.division} delay={0.05 * gi}>
-              <article aria-labelledby={`equipment-${gi}`}>
-                <header className="flex items-baseline justify-between gap-6 border-b-2 border-ink pb-4">
-                  <h3 id={`equipment-${gi}`} className="display text-[clamp(1.45rem,2.4vw,2.1rem)]">
+            <article
+              key={group.division}
+              aria-labelledby={`equipment-${gi}`}
+              className="grid gap-8 border-t-2 border-ink pt-8 lg:grid-cols-12 lg:gap-10 lg:pt-10"
+            >
+              {/* Division summary, pinned while its instruments scroll by */}
+              <div className="lg:col-span-4">
+                <Reveal className="lg:sticky lg:top-28">
+                  <h3
+                    id={`equipment-${gi}`}
+                    className="display text-[clamp(1.6rem,2.6vw,2.4rem)] leading-[1.02]"
+                  >
                     {group.division}
                   </h3>
-                  <p className="eyebrow shrink-0 text-ink/65">
-                    {group.items.length} {group.items.length === 1 ? "item" : "items"}
-                  </p>
-                </header>
+                  <dl className="mt-8 grid grid-cols-3 border-y border-ink/15 lg:grid-cols-1">
+                    <div className="py-5 pr-4 lg:border-b lg:border-ink/15 lg:pr-0">
+                      <dt className="eyebrow text-ink/65">Instruments</dt>
+                      <dd className="display mt-2 text-4xl leading-none tabular-nums md:text-5xl">
+                        {pad(group.items.length)}
+                      </dd>
+                    </div>
+                    <div className="border-l border-ink/15 py-5 pl-4 lg:border-b lg:border-l-0 lg:pl-0">
+                      <dt className="eyebrow text-ink/65">Total units</dt>
+                      <dd className="display mt-2 text-4xl leading-none tabular-nums md:text-5xl">
+                        {pad(group.units)}
+                      </dd>
+                    </div>
+                    <div className="border-l border-ink/15 py-5 pl-4 lg:border-l-0 lg:pl-0">
+                      <dt className="eyebrow text-ink/65">Location</dt>
+                      <dd className="mt-3 text-base font-medium md:text-lg">
+                        {group.locations.join(", ")}
+                      </dd>
+                    </div>
+                  </dl>
+                </Reveal>
+              </div>
 
-                {/* Desktop and tablet: full specification table */}
-                <table className="hidden w-full table-fixed border-collapse text-left md:table">
-                  <caption className="sr-only">{group.division}</caption>
-                  <thead>
-                    <tr className="border-b border-ink/20">
-                      {columns.map((col) => (
-                        <th
-                          key={col}
-                          scope="col"
-                          className={cn(
-                            "eyebrow py-4 pr-4 font-medium text-ink/65",
-                            col === "S.No." && "w-20",
-                            col === "Item" && "w-[30%]",
-                            col === "Maker" && "w-[20%]",
-                            col === "Qty" && "w-20 text-right",
-                            col === "Location" && "w-44 pr-0 text-right",
-                          )}
-                        >
-                          {col}
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {group.items.map((row) => (
-                      <tr
-                        key={row.sno}
-                        className="border-b border-ink/12 transition-colors hover:bg-ink/[0.035]"
-                      >
-                        <td className="py-5 pr-4 font-mono text-sm text-ink/65 tabular-nums">
-                          {String(row.sno).padStart(2, "0")}
-                        </td>
-                        <th scope="row" className="py-5 pr-4 text-base font-medium lg:text-lg">
-                          {row.item}
-                        </th>
-                        <td className="py-5 pr-4 text-ink/75">{row.maker}</td>
-                        <td className="py-5 pr-4 font-mono text-sm text-ink/80 tabular-nums">
-                          {row.range}
-                        </td>
-                        <td className="py-5 pr-4 text-right font-mono text-lg text-ink tabular-nums">
-                          {row.qty}
-                        </td>
-                        <td className="py-5 text-right">
-                          <span className="eyebrow inline-flex border border-ink/25 px-2.5 py-1 text-ink/75">
-                            {row.location}
+              {/* Spec tiles on a hairline grid */}
+              <ul className="grid gap-px border border-ink/15 bg-ink/15 sm:grid-cols-2 lg:col-span-8 xl:grid-cols-3">
+                {group.items.map((row, i) => (
+                  <li key={row.sno} className="bg-paper">
+                    <Reveal delay={0.05 * i} y={14} className="h-full">
+                      <div className="group relative flex h-full flex-col p-5 sm:min-h-72 sm:p-6 transition-colors duration-500 hover:bg-ink hover:text-white md:p-7">
+                        <div className="flex items-start justify-between gap-4">
+                          <span className="font-mono text-sm text-ink/65 tabular-nums transition-colors duration-500 group-hover:text-white/65">
+                            <span className="sr-only">S.No. </span>
+                            {pad(row.sno)}
                           </span>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                          <span className="text-right">
+                            <span className="eyebrow block text-ink/65 transition-colors duration-500 group-hover:text-white/65">
+                              Qty
+                            </span>
+                            <span className="display mt-1 block text-4xl leading-none tabular-nums">
+                              {row.qty}
+                            </span>
+                          </span>
+                        </div>
 
-                {/* Phone: one block per item, since six columns cannot fit */}
-                <ul className="md:hidden">
-                  {group.items.map((row) => (
-                    <li key={row.sno} className="border-b border-ink/12 py-5">
-                      <div className="flex items-baseline justify-between gap-4">
-                        <p className="text-lg font-medium">
-                          <span className="mr-3 font-mono text-sm text-ink/65 tabular-nums">
-                            {String(row.sno).padStart(2, "0")}
-                          </span>
-                          {row.item}
-                        </p>
-                        <span className="eyebrow shrink-0 border border-ink/25 px-2 py-0.5 text-ink/75">
-                          {row.location}
-                        </span>
+                        <h4 className="display mt-4 text-xl sm:mt-8 leading-[1.1] md:text-[1.4rem]">{row.item}</h4>
+
+                        <dl className="mt-auto space-y-2.5 pt-5 text-sm sm:space-y-3 sm:pt-8">
+                          {[
+                            ["Maker", row.maker, false],
+                            ["Range", row.range, true],
+                            ["Location", row.location, false],
+                          ].map(([label, value, mono]) => (
+                            <div
+                              key={label as string}
+                              className="flex items-baseline justify-between gap-4 border-t border-ink/12 pt-3 transition-colors duration-500 group-hover:border-white/15"
+                            >
+                              <dt className="eyebrow text-ink/65 transition-colors duration-500 group-hover:text-white/65">
+                                {label}
+                              </dt>
+                              <dd
+                                className={
+                                  mono
+                                    ? "whitespace-nowrap font-mono tabular-nums"
+                                    : "text-right font-medium"
+                                }
+                              >
+                                {value}
+                              </dd>
+                            </div>
+                          ))}
+                        </dl>
+
+                        {/* Measuring-scale ticks along the base of each tile */}
+                        <span
+                          aria-hidden
+                          className="mt-5 block h-3 opacity-30 sm:mt-6 transition-opacity duration-500 group-hover:opacity-60 [background-image:repeating-linear-gradient(to_right,currentColor_0_1px,transparent_1px_8px),repeating-linear-gradient(to_right,currentColor_0_1px,transparent_1px_40px)] [background-position:0_100%,0_100%] [background-repeat:repeat-x] [background-size:100%_6px,100%_12px]"
+                        />
                       </div>
-                      <dl className="mt-3 grid grid-cols-[1fr_9.5rem_2.5rem] gap-x-6 gap-y-3 text-sm">
-                        <div>
-                          <dt className="eyebrow text-ink/65">Maker</dt>
-                          <dd className="mt-1 text-ink/80">{row.maker}</dd>
-                        </div>
-                        <div>
-                          <dt className="eyebrow text-ink/65">Range</dt>
-                          <dd className="mt-1 whitespace-nowrap font-mono text-ink/80 tabular-nums">{row.range}</dd>
-                        </div>
-                        <div className="text-right">
-                          <dt className="eyebrow text-ink/65">Qty</dt>
-                          <dd className="mt-1 font-mono text-base text-ink tabular-nums">{row.qty}</dd>
-                        </div>
-                      </dl>
-                    </li>
-                  ))}
-                </ul>
-              </article>
-            </Reveal>
+                    </Reveal>
+                  </li>
+                ))}
+              </ul>
+            </article>
           ))}
         </div>
       </div>
