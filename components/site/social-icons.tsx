@@ -60,9 +60,10 @@ export function SocialIcons({ className }: { className?: string }) {
           {s.href ? (
             <a
               href={s.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`${s.label} (opens in a new tab)`}
+              // Real profile URLs open in a new tab; the "#" placeholder stays on the page
+              {...(s.href.startsWith("http")
+                ? { target: "_blank", rel: "noopener noreferrer", "aria-label": `${s.label} (opens in a new tab)` }
+                : { "aria-label": s.label })}
               className={cn(tile, "hover:border-white hover:bg-white hover:text-ink")}
             >
               <Glyph network={s.network} className="size-[18px]" />

@@ -2,7 +2,7 @@ import Image from "next/image";
 import { machinery, type SpecTable } from "@/lib/content";
 import { cn } from "@/lib/utils";
 import { ImageReveal, Reveal } from "./reveal";
-import { OutsourcedTag, SectionHeading } from "./section-heading";
+import { SectionHeading } from "./section-heading";
 
 function Spec({ table }: { table: SpecTable }) {
   const last = table.columns.length - 1;
@@ -101,14 +101,12 @@ export function Machinery() {
                 <div className={cn("flex flex-col md:col-span-6", flip ? "md:pr-6" : "md:pl-6")}>
                   <Reveal>
                     <div className="flex flex-wrap items-center justify-between gap-4 border-b border-ink/15 pb-5">
-                      <h3 id={`machinery-${group.key}`} className="flex items-baseline gap-4">
-                        <span className="display text-[clamp(1.45rem,2.4vw,2.1rem)] text-ink/55">
-                          {group.key}
-                          <span className="sr-only">.</span>
-                        </span>
-                        <span className="display text-[clamp(1.45rem,2.4vw,2.1rem)]">{group.title}</span>
+                      <h3
+                        id={`machinery-${group.key}`}
+                        className="display text-[clamp(1.45rem,2.4vw,2.1rem)]"
+                      >
+                        {group.title}
                       </h3>
-                      <OutsourcedTag />
                     </div>
                   </Reveal>
 

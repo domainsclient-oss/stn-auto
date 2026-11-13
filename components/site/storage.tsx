@@ -2,7 +2,7 @@ import Image from "next/image";
 import { storage } from "@/lib/content";
 import { cn } from "@/lib/utils";
 import { Reveal } from "./reveal";
-import { OutsourcedTag, SectionHeading } from "./section-heading";
+import { SectionHeading } from "./section-heading";
 
 export function Storage() {
   return (
@@ -43,18 +43,7 @@ export function Storage() {
               )}
             >
               <Reveal delay={0.1 * i} className="flex h-full flex-col">
-                <div className="flex items-start justify-between gap-4">
-                  <span className="display text-2xl text-white/50">{s.key}</span>
-                  {s.outsourced ? (
-                    <OutsourcedTag tone="dark" />
-                  ) : (
-                    <span className="eyebrow inline-flex items-center gap-2 border border-white bg-white px-2.5 py-1 text-ink">
-                      <span aria-hidden className="size-1.5 rounded-full bg-current" />
-                      Available
-                    </span>
-                  )}
-                </div>
-                <h3 className="display mt-6 text-xl md:text-2xl">{s.title}</h3>
+                <h3 className="display text-xl md:text-2xl">{s.title}</h3>
 
                 <dl className="mt-auto space-y-8 pt-12">
                   {s.figures.map((f) => (
@@ -68,6 +57,9 @@ export function Storage() {
                           <span className="eyebrow text-white/70">{f.unit}</span>
                         ) : null}
                       </dd>
+                      {"note" in f ? (
+                        <dd className="mt-2 text-sm text-white/70">{f.note}</dd>
+                      ) : null}
                     </div>
                   ))}
                 </dl>

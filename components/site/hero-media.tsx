@@ -30,7 +30,7 @@ export function HeroMedia() {
   return (
     <div aria-hidden className="absolute inset-0 overflow-hidden bg-ink">
       <Image
-        src="/video/hero-poster.jpg"
+        src="/video/hero-poster-v2.jpg"
         alt=""
         fill
         preload
@@ -52,12 +52,12 @@ export function HeroMedia() {
           loop
           playsInline
           preload="auto"
-          poster="/video/hero-poster.jpg"
+          poster="/video/hero-poster-v2.jpg"
           disablePictureInPicture
           onCanPlay={() => setVideoReady(true)}
         >
-          <source src="/video/hero.webm" type="video/webm" />
-          <source src="/video/hero.mp4" type="video/mp4" />
+          <source src="/video/hero-v2.webm" type="video/webm" />
+          <source src="/video/hero-v2.mp4" type="video/mp4" />
         </video>
       ) : null}
     </div>

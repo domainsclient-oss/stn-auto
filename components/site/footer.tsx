@@ -13,14 +13,18 @@ export function SiteFooter() {
               <Wordmark />
             </a>
             <p className="eyebrow mt-6 text-white/60">{site.tagline}</p>
-            <p className="mt-3 max-w-sm text-sm leading-relaxed text-white/60">
-              {site.name}. ISO 9001:2015 certified. {site.city}, {site.region},{" "}
-              {site.country}.
-            </p>
+            <address className="mt-5 max-w-sm border-l-2 border-white/20 pl-4 text-sm leading-relaxed text-white/75 not-italic">
+              <span className="block font-medium text-white">{site.name}</span>
+              {site.contact.addressLines.map((line) => (
+                <span key={line} className="block">
+                  {line}
+                </span>
+              ))}
+            </address>
             <SocialIcons className="mt-8" />
           </div>
           <nav aria-label="Footer" className="md:col-span-5">
-            <ul className="grid grid-cols-2 gap-x-6 gap-y-3 sm:grid-cols-3">
+            <ul className="grid grid-flow-col grid-cols-2 grid-rows-4 gap-x-10 gap-y-3">
               {navItems.map((item) => (
                 <li key={item.id}>
                   <a href={item.href} className="link-underline text-sm text-white/65 hover:text-white">

@@ -66,19 +66,3 @@ export function SectionHeading({
     </div>
   );
 }
-
-export function OutsourcedTag({ tone = "light" }: { tone?: "dark" | "light" }) {
-  return (
-    <span
-      className={cn(
-        "eyebrow inline-flex items-center gap-2 border px-2.5 py-1",
-        tone === "dark"
-          ? "border-white/30 text-white/80"
-          : "border-ink/30 text-ink/75",
-      )}
-    >
-      <span aria-hidden className="size-1.5 rounded-full bg-current" />
-      Outsourced
-    </span>
-  );
-}

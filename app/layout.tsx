@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     description: site.description,
     images: [
       {
-        url: "/video/hero-poster.jpg",
+        url: "/video/hero-poster-v2.jpg",
         width: 2560,
         height: 1429,
         alt: "Close-up of automotive fabric on a warp knitting machine",
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title,
     description: site.description,
-    images: ["/video/hero-poster.jpg"],
+    images: ["/video/hero-poster-v2.jpg"],
   },
   robots: { index: true, follow: true },
   formatDetection: { telephone: false, email: false, address: false },

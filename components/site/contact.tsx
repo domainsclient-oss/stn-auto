@@ -43,12 +43,17 @@ export function Contact() {
                 <div className="py-6">
                   <dt className="eyebrow text-white/60">Address</dt>
                   <dd className="mt-2 text-lg leading-snug">
-                    {addressLines.length > 0
-                      ? addressLines.map((line) => <span key={line} className="block">{line}</span>)
-                      : null}
-                    <span className="block">
-                      {site.city}, {site.region}, {site.country}
-                    </span>
+                    {addressLines.length > 0 ? (
+                      addressLines.map((line) => (
+                        <span key={line} className="block">
+                          {line}
+                        </span>
+                      ))
+                    ) : (
+                      <span className="block">
+                        {site.city}, {site.region}, {site.country}
+                      </span>
+                    )}
                   </dd>
                 </div>
                 <div className="py-6">

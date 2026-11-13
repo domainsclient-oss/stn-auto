@@ -17,12 +17,24 @@ export const site = {
   country: "India",
   incorporated: "October 2021",
   contact: {
-    /** TODO: full registered / plant address, one line per entry. */
-    addressLines: [] as string[],
-    /** TODO: e.g. "+91 00000 00000" */
-    phone: "" as string,
-    /** TODO: enquiry inbox. The enquiry form is disabled until this is set. */
-    email: "" as string,
+    /** Registered address, one line per entry (shown in the footer and Contact section). */
+    addressLines: [
+      "Plot No.D-26/3, Road No.15, Hojiwala, Industrial Estate,",
+      // Non-breaking spaces + a word joiner after the dash keep "India – 394230" together
+      "Sachinpalsana Highway, Surat, Gujarat, India –⁠ 394230",
+    ] as string[],
+    /** Street part and PIN code, used for search-engine structured data. */
+    streetAddress:
+      "Plot No.D-26/3, Road No.15, Hojiwala, Industrial Estate, Sachinpalsana Highway",
+    postalCode: "394230",
+    /**
+     * TODO: DUMMY number — replace with STN AUTO's real phone, then set
+     * `phoneIsPlaceholder` to false so it is also published to search engines.
+     */
+    phone: "+91 00000 00000" as string,
+    phoneIsPlaceholder: true as boolean,
+    /** Enquiry inbox; the enquiry form opens the visitor's email app addressed here. */
+    email: "info@stnauto.in" as string,
   },
   /**
    * TODO: replace this SAMPLE with the real ISO 9001:2015 certificate scan.
@@ -30,7 +42,7 @@ export const site = {
    * describe the official certificate.
    */
   certificateImage: {
-    src: "/images/iso-certificate-sample.webp",
+    src: "/images/iso-certificate-sample-v2.webp",
     width: 1240,
     height: 1754,
     alt: "Sample ISO 9001:2015 certificate layout for STN AUTO PRIVATE LIMITED",
@@ -38,14 +50,14 @@ export const site = {
 } as const;
 
 /**
- * TODO: paste STN AUTO's real profile URLs. Every icon shows in the footer;
- * an icon with an empty URL is not clickable until its URL is filled in.
+ * TODO: replace each "#" with STN AUTO's real profile URL (https://...).
+ * Real URLs open in a new tab; "#" placeholders keep the visitor on the page.
  */
 export const socialLinks: { network: "linkedin" | "instagram" | "facebook" | "youtube"; label: string; href: string }[] = [
-  { network: "linkedin", label: "LinkedIn", href: "" },
-  { network: "instagram", label: "Instagram", href: "" },
-  { network: "facebook", label: "Facebook", href: "" },
-  { network: "youtube", label: "YouTube", href: "" },
+  { network: "linkedin", label: "LinkedIn", href: "#" },
+  { network: "instagram", label: "Instagram", href: "#" },
+  { network: "facebook", label: "Facebook", href: "#" },
+  { network: "youtube", label: "YouTube", href: "#" },
 ];
 
 export const navItems = [

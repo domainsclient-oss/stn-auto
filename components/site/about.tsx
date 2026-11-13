@@ -55,7 +55,7 @@ export function About() {
         <div className="relative flex flex-col lg:col-span-6">
           <ImageReveal className="relative aspect-[4/5] w-full bg-ink lg:aspect-auto lg:min-h-[420px] lg:flex-1">
             <Image
-              src="/images/intro-seat.webp"
+              src="/images/intro-seat-v2.webp"
               alt="Close detail of a car seat upholstered in knitted automotive fabric"
               fill
               sizes="(min-width: 1024px) 50vw, 100vw"

@@ -15,7 +15,7 @@ import { VisionMission } from "@/components/site/vision-mission";
 import { site } from "@/lib/site";
 
 function OrganizationJsonLd() {
-  const { email, phone } = site.contact;
+  const { email, phone, phoneIsPlaceholder } = site.contact;
   const data = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -26,12 +26,15 @@ function OrganizationJsonLd() {
     foundingDate: "2021-10",
     address: {
       "@type": "PostalAddress",
+      streetAddress: site.contact.streetAddress,
+      postalCode: site.contact.postalCode,
       addressLocality: site.city,
       addressRegion: site.region,
       addressCountry: "IN",
     },
     ...(email ? { email } : {}),
-    ...(phone ? { telephone: phone } : {}),
+    // The dummy phone number is never published to search engines
+    ...(phone && !phoneIsPlaceholder ? { telephone: phone } : {}),
     hasCredential: {
       "@type": "EducationalOccupationalCredential",
       credentialCategory: "certification",

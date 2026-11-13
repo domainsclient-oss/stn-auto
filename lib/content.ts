@@ -212,7 +212,14 @@ export const storage = [
     key: "C",
     title: "Finished Goods (FG) Storage",
     outsourced: false,
-    figures: [{ value: "Available", unit: "", label: "Ready-for-dispatch storage" }],
+    figures: [
+      {
+        value: "756",
+        unit: "Sq.mtr",
+        label: "Ready for dispatch storage",
+        note: "Space available for FG storage",
+      },
+    ],
   },
 ] as const;
 
