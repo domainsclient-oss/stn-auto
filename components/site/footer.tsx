@@ -1,4 +1,4 @@
-import { ArrowUp } from "lucide-react";
+import { ArrowUp, Mail, Phone } from "lucide-react";
 import { navItems, site } from "@/lib/site";
 import { SocialIcons } from "./social-icons";
 import { Wordmark } from "./wordmark";
@@ -35,7 +35,7 @@ export function SiteFooter() {
           <nav aria-label="Footer" className="grid grid-cols-2 gap-x-10 md:col-span-7 lg:col-span-4">
             {menuColumns.map((col) => (
               <div key={col.heading}>
-                <p className="eyebrow text-white/60">{col.heading}</p>
+                <p className="eyebrow font-bold text-white">{col.heading}</p>
                 <ul className="mt-5 space-y-3">
                   {col.items.map((item) => (
                     <li key={item.id}>
@@ -51,7 +51,7 @@ export function SiteFooter() {
 
           {/* Address */}
           <div className="md:col-span-12 lg:col-span-4">
-            <p className="eyebrow text-white/60">Address</p>
+            <p className="eyebrow font-bold text-white">Address</p>
             <address className="mt-5 border-l-2 border-white/20 pl-4 text-sm leading-relaxed text-white/75 not-italic">
               <span className="block font-medium text-white">{site.name}</span>
               {site.contact.addressLines.map((line) => (
@@ -60,6 +60,36 @@ export function SiteFooter() {
                 </span>
               ))}
             </address>
+
+            {/* Email and phone, each with an icon */}
+            <ul className="mt-6 space-y-3 text-sm">
+              {site.contact.email ? (
+                <li>
+                  <a
+                    href={`mailto:${site.contact.email}`}
+                    className="group inline-flex items-center gap-3 text-white/75 transition-colors hover:text-white"
+                  >
+                    <span className="inline-flex size-9 shrink-0 items-center justify-center border border-white/20 transition-colors group-hover:border-white group-hover:bg-white group-hover:text-ink">
+                      <Mail className="size-4" strokeWidth={1.6} aria-hidden />
+                    </span>
+                    <span className="link-underline">{site.contact.email}</span>
+                  </a>
+                </li>
+              ) : null}
+              {site.contact.phone ? (
+                <li>
+                  <a
+                    href={`tel:${site.contact.phone.replace(/[^\d+]/g, "")}`}
+                    className="group inline-flex items-center gap-3 text-white/75 transition-colors hover:text-white"
+                  >
+                    <span className="inline-flex size-9 shrink-0 items-center justify-center border border-white/20 transition-colors group-hover:border-white group-hover:bg-white group-hover:text-ink">
+                      <Phone className="size-4" strokeWidth={1.6} aria-hidden />
+                    </span>
+                    <span className="link-underline tabular-nums">{site.contact.phone}</span>
+                  </a>
+                </li>
+              ) : null}
+            </ul>
           </div>
         </div>
 
