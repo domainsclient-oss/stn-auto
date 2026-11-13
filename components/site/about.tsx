@@ -65,7 +65,6 @@ export function About() {
           {/* Caption hangs below the frame so the photo ends level with the text */}
           <p className="eyebrow mt-4 flex justify-between text-ink/60 lg:absolute lg:inset-x-0 lg:top-full">
             <span>Automotive seat fabric</span>
-            <span>Fig. 01</span>
           </p>
         </div>
       </div>

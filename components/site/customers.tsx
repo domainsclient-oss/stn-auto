@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { customerSegments } from "@/lib/content";
+import { cn } from "@/lib/utils";
 import { Reveal } from "./reveal";
 import { SectionHeading } from "./section-heading";
 
@@ -49,16 +50,17 @@ export function Customers() {
                     aria-label={`${segment.title} customers`}
                     className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4 lg:flex lg:shrink-0 lg:justify-end"
                   >
-                    {segment.logos.map((logo) => (
+                    {segment.logos.map((logo, li) => (
                       <li
                         key={logo.name}
-                        className={
-                          segment.logos.length === 1
-                            ? "col-span-2 md:col-span-1 lg:w-72"
-                            : "lg:w-72"
-                        }
+                        className={cn(
+                          // Tile width scales with the viewport so up to four logos fit beside the title
+                          "lg:w-[clamp(9rem,13vw,16rem)]",
+                          // On phones a lone last logo (odd count) spans the full row
+                          segment.logos.length % 2 === 1 && li === segment.logos.length - 1 && "col-span-2 md:col-span-1",
+                        )}
                       >
-                        <div className="group/plate flex h-32 items-center justify-center border border-ink/10 bg-white px-6 transition-[border-color,box-shadow] duration-500 hover:border-ink/40 hover:shadow-[0_18px_40px_-24px_rgb(0_0_0/0.35)] md:h-40">
+                        <div className="group/plate flex h-32 items-center justify-center border border-ink/10 bg-white px-6 lg:px-3 transition-[border-color,box-shadow] duration-500 hover:border-ink/40 hover:shadow-[0_18px_40px_-24px_rgb(0_0_0/0.35)] md:h-40">
                           <Image
                             src={logo.src}
                             alt={logo.name}
@@ -66,7 +68,7 @@ export function Customers() {
                             height={logo.height}
                             sizes="(min-width: 1024px) 260px, 45vw"
                             style={{ height: `${logo.h}px` }}
-                            className="w-auto max-w-[82%] object-contain transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover/plate:scale-[1.06]"
+                            className="w-auto max-w-[88%] object-contain transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover/plate:scale-[1.06]"
                           />
                         </div>
                       </li>

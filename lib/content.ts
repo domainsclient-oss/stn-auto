@@ -22,13 +22,15 @@ const logo = {
   transys: { name: "Hyundai Transys", src: "/images/customers/hyundai-transys.png", width: 181, height: 41, h: 38 },
   kolon: { name: "Kolon", src: "/images/customers/kolon.png", width: 592, height: 106, h: 30 },
   yongsan: { name: "Yongsan", src: "/images/customers/yongsan.png", width: 450, height: 95, h: 36 },
+  saddles: { name: "Saddles", src: "/images/customers/saddles.png", width: 148, height: 149, h: 84 },
+  stl: { name: "STL", src: "/images/customers/stl.png", width: 572, height: 240, h: 40 },
 } satisfies Record<string, CustomerLogo>;
 
 /** Customer categories, each with the customers STN AUTO supplies in it. */
 export const customerSegments: { title: string; detail: string; logos: CustomerLogo[] }[] = [
   { title: "OEMs", detail: "Original equipment manufacturers", logos: [logo.hyundai, logo.kia] },
   { title: "Tier 1", detail: "Tier 1 automotive suppliers", logos: [logo.transys] },
-  { title: "Tier 2", detail: "Tier 2 automotive suppliers", logos: [logo.kolon, logo.yongsan] },
+  { title: "Tier 2", detail: "Tier 2 automotive suppliers", logos: [logo.stl, logo.kolon, logo.yongsan, logo.saddles] },
 ];
 
 export const products = [
