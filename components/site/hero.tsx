@@ -7,7 +7,7 @@ export function Hero() {
     <section
       id="home"
       aria-labelledby="hero-title"
-      className="dark-surface relative isolate flex min-h-[640px] h-svh flex-col overflow-hidden bg-ink text-white"
+      className="dark-surface relative isolate flex min-h-[max(100svh,720px)] flex-col overflow-hidden bg-ink text-white"
     >
       <HeroMedia />
       {/* Readability: a light wash keeps the photo's colour; the scrim sits only where the copy is */}
@@ -17,7 +17,7 @@ export function Hero() {
         className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/0"
       />
 
-      <div className="relative mx-auto flex w-full max-w-[1440px] flex-1 flex-col justify-end px-5 pt-28 pb-10 md:px-10 md:pb-14">
+      <div className="relative mx-auto flex w-full max-w-[1440px] flex-1 flex-col justify-end px-5 pt-28 pb-12 md:px-10 md:pb-16">
         <p
           className="eyebrow mb-6 flex flex-wrap items-center gap-x-3 gap-y-2 text-white/70 animate-rise"
           style={{ animationDelay: "0.1s" }}
