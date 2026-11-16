@@ -1,6 +1,5 @@
 import { ArrowUp, Mail, Phone } from "lucide-react";
 import { navItems, site } from "@/lib/site";
-import { SocialIcons } from "./social-icons";
 import { Wordmark } from "./wordmark";
 
 // Footer menu split into two headed columns (rename headings here).
@@ -28,7 +27,6 @@ export function SiteFooter() {
               {site.name}. ISO 9001:2015 certified. {site.city}, {site.region},{" "}
               {site.country}.
             </p>
-            <SocialIcons className="mt-8" />
           </div>
 
           {/* Menu, two headed columns */}

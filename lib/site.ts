@@ -49,17 +49,6 @@ export const site = {
   } as null | { src: string; width: number; height: number; alt: string },
 } as const;
 
-/**
- * TODO: replace each "#" with STN AUTO's real profile URL (https://...).
- * Real URLs open in a new tab; "#" placeholders keep the visitor on the page.
- */
-export const socialLinks: { network: "linkedin" | "instagram" | "facebook" | "youtube"; label: string; href: string }[] = [
-  { network: "linkedin", label: "LinkedIn", href: "#" },
-  { network: "instagram", label: "Instagram", href: "#" },
-  { network: "facebook", label: "Facebook", href: "#" },
-  { network: "youtube", label: "YouTube", href: "#" },
-];
-
 export const navItems = [
   { href: "#home", id: "home", label: "Home" },
   { href: "#about", id: "about", label: "About" },
