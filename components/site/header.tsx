@@ -45,10 +45,9 @@ export function SiteHeader() {
   return (
     <header
       className={cn(
-        "dark-surface fixed inset-x-0 top-0 z-50 text-white transition-[background-color,border-color,backdrop-filter] duration-500",
-        scrolled
-          ? "border-b border-white/10 bg-ink/90 backdrop-blur-md"
-          : "border-b border-transparent bg-transparent",
+        // Solid white bar with dark text; a soft shadow appears once the page scrolls
+        "fixed inset-x-0 top-0 z-50 border-b border-ink/10 bg-white text-ink transition-shadow duration-500",
+        scrolled && "shadow-[0_8px_24px_-16px_rgb(0_0_0/0.35)]",
       )}
     >
       <nav
@@ -67,7 +66,7 @@ export function SiteHeader() {
                 aria-current={active === item.id ? "true" : undefined}
                 className={cn(
                   "link-underline eyebrow transition-colors",
-                  active === item.id ? "text-white" : "text-white/60 hover:text-white",
+                  active === item.id ? "text-ink" : "text-ink/65 hover:text-ink",
                 )}
               >
                 {item.label}
@@ -78,7 +77,7 @@ export function SiteHeader() {
 
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger
-            className="-mr-2 inline-flex size-11 items-center justify-center text-white lg:hidden"
+            className="-mr-2 inline-flex size-11 items-center justify-center text-ink lg:hidden"
             aria-label="Open menu"
           >
             <MenuIcon className="size-6" strokeWidth={1.5} />
